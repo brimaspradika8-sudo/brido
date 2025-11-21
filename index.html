@@ -14,6 +14,42 @@
             padding: 0;
         }
         .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-background iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* agar tidak bisa di klik */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+        .hero {
             height: 100vh;
             display: flex;
             align-items: center;
@@ -119,16 +155,22 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <video class="hero-video" autoplay loop muted>
-            <source src="img/kediri.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="hero-content">
-            <h1>Selamat Datang Di Kediri</h1>
-            <p>Jelajahi Wisata, Budaya, dan Kuliner di Kediri</p>
-        </div>
-    </section>
 
+  <div class="video-background">
+    <iframe
+      src="https://www.youtube.com/embed/FNR0DYnYAQs?autoplay=1&mute=1&controls=0&loop=1&playlist=FNR0DYnYAQs&modestbranding=1&showinfo=0"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="hero-content">
+      <h1>Selamat Datang Di Kediri</h1>
+      <p>Jelajahi Wisata, Budaya, dan Kuliner di Kediri</p>
+  </div>
+
+</section>
     <!-- Search Results Section -->
     <section id="search-results" class="section" style="display: none;">
         <div class="container">
