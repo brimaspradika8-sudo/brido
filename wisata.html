@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wisata Kediri</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8B5A2B 0%, #A67C52 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .hero {
+            background-image: url('img/gunung_kelud.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .hero h1 {
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            background: #fd79a8;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: #e84393;
+            transform: scale(1.05);
+        }
+        .section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .menu-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .menu-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .menu-card p {
+            margin-bottom: 15px;
+        }
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .rating {
+            margin-bottom: 10px;
+        }
+        .rating .star {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .info-section {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .info-section h4 {
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #2d3436;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: #000;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #000;
+        }
+        .comment-btn {
+            background: #fd79a8;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .comment-btn:hover {
+            background: #e84393;
+        }
+        .detail-btn {
+            background: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .detail-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <div class="container">
+            <a class="navbar-brand" href="#">Brido</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kuliner.html">Kuliner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wisata.html">Wisata</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budaya.html">Budaya</a></li>
+                </ul>
+                <div class="d-flex ms-3">
+                    <input type="text" id="searchInput" placeholder="Search" class="form-control" onkeyup="searchPlaces()" style="width: 200px;">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Wisata Kediri</h1>
+            <p>Jelajahi Keindahan Alam dan Sejarah Kota Kediri</p>
+        </div>
+    </section>
+
+    <!-- Wisata Section -->
+    <section id="wisata" class="section">
+        <div class="container">
+            <div id="wisata-container" class="row"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Brido. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <img id="modalImg" src="" alt="">
+    <p id="modalDesc"></p>
+    <p id="modalHistory"></p>
+    <p><strong>Rating:</strong> ⭐ <span id="modalRating"></span></p>
+    <a id="modalMapLink" href="" target="_blank">📍 Arahkan Ke Maps</a>
+    <div class="comments-section">
+      <h3>Komentar</h3>
+      <div id="commentsList"></div>
+      <textarea id="commentInput" class="comment-input" placeholder="Tulis komentar..."></textarea>
+      <button class="comment-btn" onclick="addComment()">Kirim Komentar</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="loading"></div>
+
+<script>
+const data = [
+  {
+    name: "Gunung Kelud",
+    type: "Alam",
+    category: "Wisata",
+    desc: "Gunung berapi dengan panorama indah.",
+    history: "Gunung Kelud dikenal sejak era Majapahit sebagai gunung suci.",
+    rating: 4.8,
+    img: "img/gunung_kelud.jpeg",
+    lat: -7.9349568,
+    lng: 112.2932892,
+    URL: "https://www.google.com/maps/place/Gn.+Kelud/@-7.9349993,112.2932892,14z/data=!3m1!4b1!4m6!3m5!1s0x2e788bf4425ac5e3:0xfdacc6dbc315617d!8m2!3d-7.935!4d112.3138889!16zL20vMDUyOWMz?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D",
+    comments: []
+  },
+  {
+    name: "Simpang Lima Gumul",
+    type: "Landmark",
+    category: "Wisata",
+    desc: "Arc de Triomphe-nya Kediri.",
+    history: "Diresmikan 2008, menjadi ikon modern Kediri.",
+    rating: 4.7,
+    img: "img/slg.jpeg",
+    lat: -7.81605,
+    lng: 112.06285,
+    url: "https://www.google.com/maps?q=-7.81605,112.06285",
+    comments: []
+  },
+  {
+    name: "Gua Selomangleng",
+    type: "Sejarah",
+    category: "Wisata",
+    desc: "Gua kuno yang sangat bersejarah.",
+    history: "Konon menjadi tempat pertapaan Dewi Kilisuci.",
+    rating: 4.6,
+    img: "img/goa.jpeg",
+    lat: -7.8071875,
+    lng: 111.9681658,
+    comments: []
+  },
+  {
+    name: "Air Terjun Dolo",
+    type: "Alam",
+    category: "Wisata",
+    desc: "Air terjun.",
+    history: "Konon menjadi tempat pertapaan Dewi Kilisuci.",
+    rating: 4.6,
+    img: "img/dolo.jpeg",
+    lat: -7.87037,
+    lng: 111.8327569,
+    comments: []
+  },
+  {
+    name: "Candi Tegowangi",
+    type: "Sejarah",
+    category: "Wisata",
+    desc: "Candi Hindu yang terletak di Kediri.",
+    history: "Dibangun pada abad ke-14 sebagai tempat pemujaan.",
+    rating: 4.5,
+    img: "img/candi_tegowangi.jpg",
+    lat: -7.7346807,
+    lng: 112.1586678,
+    comments: []
+  },
+  {
+    name: "Waduk Siman",
+    type: "Alam",
+    category: "Wisata",
+    desc: "Waduk besar yang menyediakan air irigasi.",
+    history: "Dibangun pada tahun 1980-an untuk pengembangan pertanian.",
+    rating: 4.4,
+    img: "img/siman.jpg",
+    lat: -7.8174994,
+    lng: 112.2830114,
+    comments: []
+  },
+  {
+    name: "Gunung Klotok",
+    type: "Alam",
+    category: "Wisata",
+    desc: "Gunung jalur pendakian menantang.",
+    history: "Dikenal sebagai destinasi pendakian sejak lama.",
+    rating: 4.3,
+    img: "img/klotok.jpg",
+    lat: -7.8136105,
+    lng: 111.9341225,
+    comments: []
+  },
+  {
+    name: "Gronjong Wariti",
+    type: "Sejarah",
+    category: "Wisata",
+    desc: "Situs arkeologi dengan relief kuno.",
+    history: "Berasal dari era kerajaan Kediri.",
+    rating: 4.2,
+    img: "img/gronjong_wariti.jpg",
+    lat: -7.7270039,
+    lng: 112.1382025,
+    comments: []
+  },
+  {
+    name: "Soto Podjok",
+    type: "Kuliner",
+    category: "Kuliner",
+    desc: "Tumpang legendaris khas Kediri.",
+    history: "Tumpang dibuat dari fermentasi tempe semangit sejak zaman dulu.",
+    rating: 4.9,
+    img: "img/soto.jpeg",
+    lat: -7.8482,
+    lng: 112.0230,
+    comments: []
+  },
+  {
+    name: "Sate dan Gule Kambing Pak Eko Satak",
+    type: "Kuliner",
+    category: "Kuliner",
+    desc: "Tumpang legendaris khas Kediri.",
+    history: "Tumpang dibuat dari fermentasi tempe semangit sejak zaman dulu.",
+    rating: 4.9,
+    img: "img/sate.jpeg",
+    lat: -7.8482,
+    lng: 112.0230,
+    comments: []
+  },
+  {
+    name: "Nasi Pecel Tumpang Bu Poniman Gurah",
+    type: "Kuliner",
+    category: "Kuliner",
+    desc: "Tumpang legendaris khas Kediri.",
+    history: "Tumpang dibuat dari fermentasi tempe semangit sejak zaman dulu.",
+    rating: 4.9,
+    img: "img/pecel.jpeg",
+    lat: -7.8482,
+    lng: 112.0230,
+    comments: []
+  }
+];
+
+const wisataData = data.filter(item => item.category === "Wisata");
+
+// Assign IDs to wisataData
+wisataData.forEach((item, i) => item.id = i);
+
+function displayWisata(items) {
+  const container = document.getElementById("wisata-container");
+  container.innerHTML = "";
+  items.forEach(item => {
+    container.innerHTML += `
+      <div class="col-md-4">
+        <div class="menu-card">
+          <img src="${item.img}" alt="${item.name}">
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+          <div class="rating">
+            ⭐ ${item.rating}
+          </div>
+          <button onclick='openModal("${item.name}")' class="detail-btn">Lihat Detail</button>
+        </div>
+      </div>`;
+  });
+}
+
+displayWisata(wisataData);
+
+
+
+
+
+function searchPlaces(){
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = wisataData.filter(item =>
+    item.name.toLowerCase().includes(q)
+  );
+  displayWisata(filtered);
+}
+
+
+
+let currentItem = null;
+
+function openModal(name) {
+  const item = wisataData.find(i => i.name === name);
+  if (item) {
+    currentItem = item;
+    document.getElementById('modalTitle').textContent = item.name;
+    document.getElementById('modalImg').src = item.img;
+    document.getElementById('modalDesc').textContent = item.desc;
+    document.getElementById('modalHistory').textContent = item.history;
+    document.getElementById('modalRating').textContent = item.rating;
+    document.getElementById('modalMapLink').href = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
+    displayComments(item.comments);
+    document.getElementById('myModal').style.display = 'block';
+    // Remove blur when modal is open
+    document.body.classList.remove("sidebar-open");
+  }
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = 'none';
+  currentItem = null;
+  // Remove blur if sidebar is open
+  const sidebar = document.getElementById("sidebar");
+  if (sidebar.classList.contains("open")) {
+    document.body.classList.add("sidebar-open");
+  }
+}
+
+function displayComments(comments) {
+  const commentsList = document.getElementById('commentsList');
+  commentsList.innerHTML = '';
+  comments.forEach(comment => {
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment';
+    commentDiv.textContent = comment;
+    commentsList.appendChild(commentDiv);
+  });
+}
+
+
+
+function addComment() {
+  const commentInput = document.getElementById('commentInput');
+  const commentText = commentInput.value.trim();
+  if (commentText && currentItem) {
+    currentItem.comments.push(commentText);
+    displayComments(currentItem.comments);
+    commentInput.value = '';
+  }
+}
+
+</script>
+
+</body>
+</html>

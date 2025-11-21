@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budaya Kediri</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8B5A2B 0%, #A67C52 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .hero {
+            background-image: url('img/jaranan.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .hero h1 {
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            background: #fd79a8;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: #e84393;
+            transform: scale(1.05);
+        }
+        .section {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .menu-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .menu-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .menu-card p {
+            margin-bottom: 15px;
+        }
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .rating {
+            margin-bottom: 10px;
+        }
+        .rating .star {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .info-section {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .info-section h4 {
+            margin-bottom: 15px;
+        }
+        .map-container {
+            margin-top: 20px;
+        }
+        footer {
+            background: #2d3436;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: #000;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #000;
+        }
+        .comment-btn {
+            background: #fd79a8;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .comment-btn:hover {
+            background: #e84393;
+        }
+        .detail-btn {
+            background: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .detail-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <div class="container">
+            <a class="navbar-brand" href="#">Brido</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kuliner.html">Kuliner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wisata.html">Wisata</a></li>
+                    <li class="nav-item"><a class="nav-link" href="budaya.html">Budaya</a></li>
+                </ul>
+                <div class="d-flex ms-3">
+                    <input type="text" id="searchInput" placeholder="Search" class="form-control" onkeyup="searchPlaces()" style="width: 200px;">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Budaya Kediri</h1>
+            <p>Jelajahi Keindahan Budaya Di Kediri</p>
+        </div>
+    </section>
+
+    <!-- Budaya Section -->
+    <section id="budaya" class="section">
+        <div class="container">
+            <div id="budaya-container" class="row"></div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Brido. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <img id="modalImg" src="" alt="">
+    <p id="modalDesc"></p>
+    <p id="modalHistory"></p>
+    <p><strong>Rating:</strong> ⭐ <span id="modalRating"></span></p>
+    <div class="comments-section">
+      <h3>Komentar</h3>
+      <div id="commentsList"></div>
+      <textarea id="commentInput" class="comment-input" placeholder="Tulis komentar..."></textarea>
+      <button class="comment-btn" onclick="addComment()">Kirim Komentar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const data = [
+  {
+    name: "Wayang Krucil",
+    type: "Seni Pertunjukan",
+    category: "Budaya",
+    desc: "Seni pertunjukan wayang kecil dari kayu yang menarik.",
+    history: "Wayang krucil berasal dari Kediri dan merupakan bagian dari tradisi wayang Jawa Timur.",
+    rating: 4.8,
+    img: "img/wayang.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  },
+  {
+    name: "Jaranan",
+    type: "Tari Tradisional",
+    category: "Budaya",
+    desc: "Tari tradisional dengan kuda tiruan dari bambu.",
+    history: "Jaranan berasal dari tradisi Jawa dan sering ditampilkan dalam upacara adat.",
+    rating: 4.7,
+    img: "img/jaranan.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  },
+  {
+    name: "Ludruk",
+    type: "Teater",
+    category: "Budaya",
+    desc: "Teater tradisional Jawa Timur dengan lawakan.",
+    history: "Ludruk berkembang di Jawa Timur dan menjadi bagian dari budaya rakyat.",
+    rating: 4.6,
+    img: "img/ludruk.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  },
+  {
+    name: "Sound Horeg",
+    type: "Musik Modern",
+    category: "Budaya",
+    desc: "Sistem audio keras untuk karnaval dan konvoi.",
+    history: "Sound horeg populer di Jawa Timur sebagai bagian dari budaya musik kontemporer.",
+    rating: 4.5,
+    img: "img/horeg.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  },
+  {
+    name: "Bantengan",
+    type: "Tari Tradisional",
+    category: "Budaya",
+    desc: "Seni tari topeng banteng khas Jawa Timur Kab Kediri.",
+    history: "Bantengan berasal dari tradisi Jawa Timur dan sering ditampilkan dalam festival budaya.",
+    rating: 4.5,
+    img: "img/banteng.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  },
+  {
+    name: "Campursari",
+    type: "Musik Tradisional",
+    category: "Budaya",
+    desc: "Musik Jawa campuran tradisional dan modern.",
+    history: "Campursari berkembang di Jawa Timur sebagai musik yang menggabungkan tradisi dan modernitas.",
+    rating: 4.5,
+    img: "img/campursari.jpeg",
+    lat: -7.8480,
+    lng: 112.0179,
+    comments: []
+  }
+];
+
+const budayaData = data.filter(item => item.category === "Budaya");
+
+// Assign IDs to budayaData
+budayaData.forEach((item, i) => item.id = i);
+
+function displayBudaya(items) {
+  const container = document.getElementById("budaya-container");
+  container.innerHTML = "";
+  items.forEach(item => {
+    container.innerHTML += `
+      <div class="col-md-4">
+        <div class="menu-card">
+          <img src="${item.img}" alt="${item.name}">
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+          <div class="rating">
+            ⭐ ${item.rating}
+          </div>
+          <button onclick='openModal("${item.name}")' class="detail-btn">Lihat Detail</button>
+        </div>
+      </div>`;
+  });
+}
+
+displayBudaya(budayaData);
+
+function searchPlaces(){
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = budayaData.filter(item =>
+    item.name.toLowerCase().includes(q) || item.type.toLowerCase().includes(q)
+  );
+  displayBudaya(filtered);
+}
+
+let currentItem = null;
+
+function openModal(name) {
+  const item = budayaData.find(i => i.name === name);
+  if (item) {
+    currentItem = item;
+    document.getElementById('modalTitle').textContent = item.name;
+    document.getElementById('modalImg').src = item.img;
+    document.getElementById('modalDesc').textContent = item.desc;
+    document.getElementById('modalHistory').textContent = item.history;
+    document.getElementById('modalRating').textContent = item.rating;
+    displayComments(item.comments);
+    document.getElementById('myModal').style.display = 'block';
+  }
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = 'none';
+  currentItem = null;
+}
+
+function displayComments(comments) {
+  const commentsList = document.getElementById('commentsList');
+  commentsList.innerHTML = '';
+  comments.forEach(comment => {
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment';
+    commentDiv.textContent = comment;
+    commentsList.appendChild(commentDiv);
+  });
+}
+
+function addComment() {
+  const commentInput = document.getElementById('commentInput');
+  const commentText = commentInput.value.trim();
+  if (commentText && currentItem) {
+    currentItem.comments.push(commentText);
+    displayComments(currentItem.comments);
+    commentInput.value = '';
+  }
+}
+</script>
+
+</body>
+</html>
